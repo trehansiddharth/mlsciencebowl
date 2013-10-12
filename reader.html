@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>mlsciencebowl: Science Bowl management system</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<style>
+			body {
+				height: 100%;
+			}
+			.container {
+				min-height: 100%;
+			}
+			.footer {
+				height: 40px;
+				margin-top: -40px;
+			}
+		</style>
+		<link href="css/bootstrap-responsive.css" rel="stylesheet" />
+	</head>
+	<body>
+		<script src="http://code.jquery.com/jquery.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+		<div class="container-fluid">
+			<div class="page-header">
+				<center><h1>mlsciencebowl <br /><small>Science Bowl management system</small></h1></center>
+				<ul class="breadcrumb">
+					<li><a href="#">Home</a> <span class="divider">/</span></li>
+					<li><a href="#">Administrator</a> <span class="divider">/</span></li>
+					<li class="active">Reader</li>
+				</ul>
+				<ul class="nav nav-tabs">
+					<li><a href="queue.html">Queue <span class="badge badge-warning">3</span></a></li>
+					<li><a href="database.html">Database <span class="badge badge-success">300</span></a></li>
+					<li><a href="announcements.html">Announcements</a></li>
+					<li><a href="users.html">Users</a></li>
+					<li class="active"><a href="reader.html">Reader <span class="badge badge-warning">3</span></a></li>
+					<li><a href="upload.html">Upload</a></li>
+				</ul>
+				<h2>Reader</h2>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					<p><b>3 rounds</b> have been submitted today.</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="span3">Name</th>
+								<th class="span6">Round</th>
+								<th class="span3">Type</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="success">
+								<td><label><input type="radio" name="round" /><span class="glyphicon glyphicon-user"></span> <b>Arvind Sundararajan</b></label></td>
+								<td><span class="glyphicon glyphicon-file"></span>Thanksgiving Round #1 2013 <span class="badge badge-success">Complete</span></td>
+								<td>Assorted Lightning</td>
+							</tr>
+							<tr class="warning">
+								<td><label><input type="radio" name="round" /><span class="glyphicon glyphicon-user"></span> <b>Daniel Shen</b></label></td>
+								<td><span class="glyphicon glyphicon-file"></span>Thanksgiving Round #1 2013 <span class="badge badge-warning">Partial</span></td>
+								<td>Assorted Lightning</td>
+							</tr>
+							<tr class="warning">
+								<td><label><input type="radio" name="round" /><span class="glyphicon glyphicon-user"></span> <b>Preethi Raju</b></label></td>
+								<td><span class="glyphicon glyphicon-file"></span>Thanksgiving Round #1 2013 <span class="badge badge-warning">Partial</span></td>
+								<td>Assorted Lightning</td>
+							</tr>
+						</tbody>
+					</table>
+					<p align="right">
+						<!--<button class="btn" type="button"><span class="glyphicon glyphicon-trash"></span> Look for Older Rounds</button>-->
+						<button class="btn btn-primary" type="button">Read Selected Round</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+      			<div class="container">
+        			<center><p class="muted credit">Developed by <a href="https://github.com/trehansiddharth" target="_blank">Siddharth Trehan</a></p></center>
+			</div>
+		</div>
+	</body>
+</html>

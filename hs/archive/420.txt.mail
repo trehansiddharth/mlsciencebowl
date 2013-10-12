@@ -1,0 +1,42 @@
+Delivered-To: mlsciencebowl@gmail.com
+Received: by 10.231.37.132 with SMTP id x4cs85336ibd;
+        Sun, 15 Nov 2009 21:05:55 -0800 (PST)
+Received: by 10.115.134.40 with SMTP id l40mr14014926wan.41.1258347954745;
+        Sun, 15 Nov 2009 21:05:54 -0800 (PST)
+Return-Path: <nkhl_kotha@yahoo.com>
+Received: from web45208.mail.sp1.yahoo.com (web45208.mail.sp1.yahoo.com [68.180.197.113])
+        by mx.google.com with SMTP id 7si14833209pxi.60.2009.11.15.21.05.53;
+        Sun, 15 Nov 2009 21:05:53 -0800 (PST)
+Received-SPF: pass (google.com: domain of nkhl_kotha@yahoo.com designates 68.180.197.113 as permitted sender) client-ip=68.180.197.113;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of nkhl_kotha@yahoo.com designates 68.180.197.113 as permitted sender) smtp.mail=nkhl_kotha@yahoo.com; dkim=pass (test mode) header.i=@yahoo.com
+Received: (qmail 8686 invoked by uid 60001); 16 Nov 2009 05:05:53 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024; t=1258347953; bh=RAUpEKVvjMWkDvkYp+rK1TL64pjuWn8yd8haQ/ZFoPk=; h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type; b=QBPUViGTMdvyyCGMHRHAQ/6OOBPAghqkf4eaTIivRJ1/fuQHJHk6ViQ9PH0s/R8KkFi75FZZhIUIm75kb1SVDQyiH8GbO+7a+5h6wSrKZgSi4dSZ3BQugfnyazF1Z7TQdO56952gbKgQLjs8cM31j+/vcZakNg7/BbNpPQEEAFI=
+DomainKey-Signature:a=rsa-sha1; q=dns; c=nofws;
+  s=s1024; d=yahoo.com;
+  h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
+  b=ws2J12RWTQufwsVfZqXBK+7f9N+c8CuR0q9xf4NOOo9D1aOzpiBJZxqYGJhmZP91ItmoLfo35RdcZqSN2Htp7Zt9cx31B9DO41d//xvi95M8IqqG+MrQo4wNLqioK/VEPVrCpQ66zXxCoSiy3uyS/YIQz7xQX1sCBFHIkKlc4fw=;
+Message-ID: <195453.4794.qm@web45208.mail.sp1.yahoo.com>
+X-YMail-OSG: G02B1z8VM1mMtaV0Oy9wXnXg8E30s9fHBGyjnj6.6tThl2D9c0pt7OJG5Yr3v9fiI6MimwTo0lx3qcCiXbso6Lb_.XLeDV0JAndDqQ6MJVbhFN1VPWeIBMt_L0jxIa0vVOTzn0u4YgduhZy3HzKAmC_jLJsTm0.X3G.eb0v3Duif8OgpIJ42ik4GjKZ35K.pywzYi7.s9.bbW5Z.i8RWXkOoDlXo3R5ACg1vKyz0jNiHzXffBYsUJva3nUDt_xTsNpJk.cWWd3J0x8N4MxjGl9nwMg--
+Received: from [71.142.205.148] by web45208.mail.sp1.yahoo.com via HTTP; Sun, 15 Nov 2009 21:05:53 PST
+X-Mailer: YahooMailRC/211.6 YahooMailWebService/0.7.361.4
+Date: Sun, 15 Nov 2009 21:05:53 -0800 (PST)
+From: Nikhil Kotha <nkhl_kotha@yahoo.com>
+Subject: Science Bowl Q's
+To: mlsciencebowl@gmail.com
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="0-675856720-1258347953=:4794"
+
+--0-675856720-1258347953=:4794
+Content-Type: text/plain; charset=us-ascii
+
+here are my chem. Q's
+
+
+      
+--0-675856720-1258347953=:4794
+Content-Type: text/html; charset=us-ascii
+
+<html><head><style type="text/css"><!-- DIV {margin:0px;} --></style></head><body><div style="font-family:times new roman, new york, times, serif;font-size:12pt"><DIV>here are my chem. Q's</DIV><!-- cg30.c3.mail.sp2.yahoo.com compressed/chunked Wed Nov 11 16:19:52 PST 2009 --></div><br>
+
+      </body></html>
+--0-675856720-1258347953=:4794--

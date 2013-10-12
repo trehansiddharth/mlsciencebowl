@@ -1,0 +1,157 @@
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE GADTs #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE DataKinds #-}
+
+module Get where
+	
+	import Server
+	import System.IO
+	import Network.HaskellNet.IMAP
+	import Network.HaskellNet.IMAP.SSL
+	import Data.ByteString.Char8
+	import Control.Monad
+	import Codec.MIME.Parse
+	import Control.Applicative
+	import Codec.MIME.Type
+	import Network.HaskellNet.IMAP.Connection
+	import Codec.Crypto.RSA
+	import Data.List
+	import Control.Monad.Trans.Maybe
+	import Control.Monad.IO.Class
+	import Control.Exception
+	import GHC.Word
+	import GHC.IO.Handle
+	import Data.ByteString
+	import Codec.MIME.Base64
+	import Data.List.Utils
+	
+	data Gmail = Gmail String (Maybe IMAPConnection)
+					deriving (Eq)
+	data GmailHandle = GmailHandle Word64 IMAPConnection
+					deriving (Eq)
+	data DiskHandle = DiskHandle Word64 Handle
+					deriving (Eq, Show)
+	data Disk = Disk FilePath
+					deriving (Eq, Show)
+	data Key = NullKey | Password String
+					deriving (Eq, Show)
+	data Action = Read | Write | Glance
+					deriving (Eq, Show)
+	data Result = RString ByteString
+					deriving (Eq, Show)
+	data FileRecord = FileRecord Word64 String String FilePath
+	
+	instance Show Gmail where
+		show (Gmail s Nothing) = "Gmail " ++ show s ++ " (not connected)"
+		show (Gmail s (Just x)) = "Gmail " ++ show s ++ " (connected)"
+	
+	instance Show GmailHandle where
+		show (GmailHandle uid conn) = "GmailHandle " ++ show uid ++ " (connected)"
+	
+	instance SHandle GmailHandle where
+		uid (GmailHandle x conn) = x
+	
+	instance SHandle DiskHandle where
+		uid (DiskHandle x hand) = x
+	
+	instance Eq IMAPConnection
+	
+	instance Server Gmail GmailHandle where
+		type KeyFor Gmail = Key
+		type QueryFor Gmail = SearchQuery
+		type ActionFor Gmail = Action
+		type ResultFor Gmail = Result
+		open (Password p) (Gmail s currentcon) = do
+									guard $ currentcon == Nothing
+									conn <- liftIO $ connectIMAPSSL "imap.gmail.com"
+									opened <- liftIO $ catchBool (do
+										login conn s p
+										return True)
+										(\err -> return False)
+									guard $ opened
+									liftIO $ select conn "Questions"
+									return $ Gmail s (Just conn)
+		open _ _ = MaybeT $ return Nothing
+		lookup queries inactions (Gmail s (Just conn)) = do
+									guard $ and . Data.List.map (\x -> Data.List.elem x . actions $ (Gmail s (Just conn))) $ inactions
+									results <- liftIO $ search conn queries
+									return $ Data.List.map (\x -> GmailHandle x conn) results
+		lookup queries actions (Gmail s Nothing) = MaybeT $ return Nothing
+		close (Gmail s (Just conn)) = logout conn
+		close _ = return ()
+		actions _ = [Glance, Read]
+		perform Glance (GmailHandle uid conn) = do
+													result <- liftIO $ fetchHeader conn uid
+													return $ RString result
+		perform Read (GmailHandle uid conn) = do
+													result <- liftIO $ fetch conn uid
+													return $ RString result
+	instance Server Disk DiskHandle where
+		type KeyFor Disk = Key
+		type QueryFor Disk = SearchQuery
+		type ActionFor Disk = Action
+		type ResultFor Disk = Result
+		open NullKey (Disk s) = return $ Disk s
+		close (Disk s) = return ()
+		actions _ = [Glance, Read, Write]
+	
+	gettype typeline	| contains ".doc\"\r" typeline	= ".doc"
+						| contains ".docx\"\r" typeline	= ".docx"
+						| contains ".pdf\"\r" typeline	= ".pdf"
+						| otherwise					= ".unknown"
+	
+	instance Wire Gmail GmailHandle Disk DiskHandle where
+		transfer (GmailHandle id conn) (Disk s) = do
+													msg <- fetch conn id
+													--let ext = gettype . Data.ByteString.Char8.unpack $ msg
+													--let result = removeItem '\n' . removeItem '\r' . Data.List.unlines . Prelude.head . splitWhen (startswith "--") . Data.List.last . splitWhen (startswith "X-Attachment-Id") . Data.List.lines . Data.ByteString.Char8.unpack $ msg
+													--let final = Codec.MIME.Base64.decode $ result
+													--Data.ByteString.writeFile ("bank/" ++ show id ++ ext) . Data.ByteString.pack $ final
+													--System.IO.writeFile ("fetched/" ++ show id ++ ext) result
+													System.IO.writeFile ("archive/" ++ show id ++ ".txt") . Data.ByteString.Char8.unpack $ msg
+													handle <- openFile (s ++ "archive/" ++ show id ++ ".txt") ReadWriteMode
+													--GHC.IO.Handle.hPutStr handle (unpack msg)
+													return $ DiskHandle id handle
+	
+	main = do
+				runMaybeT $ main' 1 100
+				return ()
+	
+	main' i n = do
+				myserver <- open (Password "stefanboltzmann") (Gmail "mlsciencebowl" Nothing)
+				disk <- open NullKey (Disk "")
+				handles <- Server.lookup [ALLs] [Glance, Read] myserver
+				--liftIO . print $ handles
+				let msghandles = handles
+				--msg <- perform Glance msghandle
+				--liftIO . print $ msg
+				--liftIO $ Server.close myserver
+				--liftIO $ print msghandle
+				--liftIO $ print disk
+				liftIO $ mapM (\h -> transfer h disk) msghandles
+				liftIO $ Server.close myserver
+				--return msg
+				--return msg
+				--liftIO $ print "Done!"
+				--liftIO $ print $ (\(RString x) -> fst . parseHeaders . Data.ByteString.Char8.unpack $ x) msg
+	
+	
+	pool = [Source $ Disk "~/Downloads", Source $ Gmail "mlsciencebowl" Nothing]
+	catchBool :: IO Bool -> (SomeException -> IO Bool) -> IO Bool
+	catchBool = catch
+	
+	splitWhen p s =	case Data.List.dropWhile p s of
+						[] -> []
+						s' -> w : splitWhen p s''
+							where
+								(w, s'') = Data.List.break p s'
+								
+	removeItem _ []                 = []
+	removeItem x (y:ys) | x == y    = removeItem x ys
+                    	| otherwise = y : removeItem x ys

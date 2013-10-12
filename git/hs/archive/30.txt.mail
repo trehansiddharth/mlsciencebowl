@@ -1,0 +1,111 @@
+Delivered-To: mlsciencebowl@gmail.com
+Received: by 10.180.21.173 with SMTP id w13csp66822wie;
+        Thu, 7 Feb 2013 08:22:56 -0800 (PST)
+Return-Path: <dshen2015@gmail.com>
+Received-SPF: pass (google.com: domain of dshen2015@gmail.com designates 10.52.27.50 as permitted sender) client-ip=10.52.27.50
+Authentication-Results: mr.google.com;
+       spf=pass (google.com: domain of dshen2015@gmail.com designates 10.52.27.50 as permitted sender) smtp.mail=dshen2015@gmail.com;
+       dkim=pass header.i=@gmail.com
+X-Received: from mr.google.com ([10.52.27.50])
+        by 10.52.27.50 with SMTP id q18mr2146017vdg.20.1360254175889 (num_hops = 1);
+        Thu, 07 Feb 2013 08:22:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:x-received:in-reply-to:references:date:message-id
+         :subject:from:to:content-type;
+        bh=pIlXCNujlSdoCfZzEj14m0TTyTYv2L26lUEaPQiJOtY=;
+        b=QrWsTcmhCEEBKlg+6Q9YHW6YWuMZnbiRenFBXwI73McV/fP53mU1uH3ghuImv02q9l
+         +w3L4+1CR3Nf5KYzJcruwXV0yfAPjTb/Nr+ZZGry+uwubAvZ9pbK2nJBygjpv+sEI6ro
+         yrMHhz9FDSz4TqUU1ZEBxDwY48Ac/+JI67MQe3hww2MxLRKMeu5OSFFFryk8FTjF/smX
+         3eY77cUaO6IPOoWobROJVF+w1ktf806OaYUQcEgKTxVJDaFkTFvHPevRFi1+6j7CrXHL
+         P2LNuR7TW1VsD6rnmlSw6pMIdr4c7WifAIFhCWTthBCDGyX2rkh/A7SB22mCixqfmdXo
+         FBWA==
+MIME-Version: 1.0
+X-Received: by 10.52.27.50 with SMTP id q18mr2146017vdg.20.1360254175823; Thu,
+ 07 Feb 2013 08:22:55 -0800 (PST)
+Received: by 10.220.147.131 with HTTP; Thu, 7 Feb 2013 08:22:55 -0800 (PST)
+In-Reply-To: <CAA61gvLQ0tBNYE8Yt3BsQkHCz8N_grm4ocbkwWgAtTUm-pYVFg@mail.gmail.com>
+References: <CAA61gvLQ0tBNYE8Yt3BsQkHCz8N_grm4ocbkwWgAtTUm-pYVFg@mail.gmail.com>
+Date: Thu, 7 Feb 2013 08:22:55 -0800
+Message-ID: <CAA61gv+ktQ7-H-ZP8AzXfrpr5n5NNxrm+wsuXmDifNEfhQD=-g@mail.gmail.com>
+Subject: Re:
+From: Daniel Shen <dshen2015@gmail.com>
+To: mlsciencebowl@gmail.com
+Content-Type: multipart/alternative; boundary=20cf307d003cf4454b04d524da65
+
+--20cf307d003cf4454b04d524da65
+Content-Type: text/plain; charset=ISO-8859-1
+
+On Thu, Feb 7, 2013 at 7:03 AM, Daniel Shen <dshen2015@gmail.com> wrote:
+
+If [image: x minus 2] is a factor of [image: x cubed plus (k times x)
+squared plus (12 times x) minus 8], then [image: k equals]
+Answer Choices
+
+   - (A) [image: negative 6]
+   - (B) [image: negative 3]
+   - (C) [image: 2]
+   - (D) [image: 3]
+   - (E) [image: 6]
+
+
+>
+A is the answer
+
+--20cf307d003cf4454b04d524da65
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<br><br>
+<div class=3D"gmail_quote">On Thu, Feb 7, 2013 at 7:03 AM, Daniel Shen <spa=
+n dir=3D"ltr">&lt;<a href=3D"mailto:dshen2015@gmail.com" target=3D"_blank">=
+dshen2015@gmail.com</a>&gt;</span> wrote:<br>
+<div class=3D"questionStem dtm">
+<p>If <img style=3D"VERTICAL-ALIGN: middle" alt=3D"x minus 2" src=3D"http:/=
+/sat.collegeboard.org/mathmlgen/content/question/practiceQuestion/mathLevel=
+2_2/mathematicsLevel2SMCq21_1.png"> is a factor of <img style=3D"VERTICAL-A=
+LIGN: middle" alt=3D"x cubed plus (k times x) squared plus (12 times x) min=
+us 8" src=3D"http://sat.collegeboard.org/mathmlgen/content/question/practic=
+eQuestion/mathLevel2_2/mathematicsLevel2SMCq21_2.png">, then <img style=3D"=
+VERTICAL-ALIGN: middle" alt=3D"k equals" src=3D"http://sat.collegeboard.org=
+/mathmlgen/content/question/practiceQuestion/mathLevel2_2/mathematicsLevel2=
+SMCq21_3.png"></p>
+</div>
+<fieldset id=3D"qotdChoicesFields" class=3D"qotdChoicesFields"><legend>Answ=
+er Choices </legend>
+<ul class=3D"qotdChoiceList qotdChoiceList none">
+<li><input id=3D"qotdChoicesA" tabindex=3D"5" value=3D"A" type=3D"radio" na=
+me=3D"userResponse"> <label for=3D"qotdChoicesA">(A) <img style=3D"VERTICAL=
+-ALIGN: middle" alt=3D"negative 6" src=3D"http://sat.collegeboard.org/mathm=
+lgen/content/question/practiceQuestion/mathLevel2_2/mathematicsLevel2SMCq21=
+_4.png"></label></li>
+
+<li><input id=3D"qotdChoicesB" tabindex=3D"5" value=3D"B" type=3D"radio" na=
+me=3D"userResponse"> <label for=3D"qotdChoicesB">(B) <img style=3D"VERTICAL=
+-ALIGN: middle" alt=3D"negative 3" src=3D"http://sat.collegeboard.org/mathm=
+lgen/content/question/practiceQuestion/mathLevel2_2/mathematicsLevel2SMCq21=
+_5.png"></label></li>
+
+<li><input id=3D"qotdChoicesC" tabindex=3D"5" value=3D"C" type=3D"radio" na=
+me=3D"userResponse"> <label for=3D"qotdChoicesC">(C) <img style=3D"VERTICAL=
+-ALIGN: middle" alt=3D"2" src=3D"http://sat.collegeboard.org/mathmlgen/cont=
+ent/question/practiceQuestion/mathLevel2_2/mathematicsLevel2SMCq21_6.png"><=
+/label></li>
+
+<li><input id=3D"qotdChoicesD" tabindex=3D"5" value=3D"D" type=3D"radio" na=
+me=3D"userResponse"> <label for=3D"qotdChoicesD">(D) <img style=3D"VERTICAL=
+-ALIGN: middle" alt=3D"3" src=3D"http://sat.collegeboard.org/mathmlgen/cont=
+ent/question/practiceQuestion/mathLevel2_2/mathematicsLevel2SMCq21_7.png"><=
+/label></li>
+
+<li><input id=3D"qotdChoicesE" tabindex=3D"5" value=3D"E" type=3D"radio" na=
+me=3D"userResponse"> <label for=3D"qotdChoicesE">(E) <img style=3D"VERTICAL=
+-ALIGN: middle" alt=3D"6" src=3D"http://sat.collegeboard.org/mathmlgen/cont=
+ent/question/practiceQuestion/mathLevel2_2/mathematicsLevel2SMCq21_8.png"><=
+/label></li>
+</ul></fieldset>=20
+<blockquote style=3D"BORDER-LEFT:#ccc 1px solid;MARGIN:0px 0px 0px 0.8ex;PA=
+DDING-LEFT:1ex" class=3D"gmail_quote"><br></blockquote></div><br>A is the a=
+nswer
+
+--20cf307d003cf4454b04d524da65--

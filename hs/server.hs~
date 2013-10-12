@@ -1,0 +1,144 @@
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE GADTs #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE FunctionalDependencies #-}
+
+module Server where
+
+	import System.IO
+	import Control.Monad
+	import Control.Applicative
+	import Data.List
+	import Control.Monad.Trans.Maybe
+	import Control.Monad
+	import GHC.Word
+	
+	-- "Server" class for all server objects (Gmail, Disk, etc.)
+		
+	class (SHandle handle, Show handle) => Server server handle | server -> handle, handle -> server where
+		type KeyFor server :: *
+		type QueryFor server :: *
+		type ActionFor server :: *
+		type ResultFor server :: *
+		lookup :: [QueryFor server] -> [ActionFor server] -> server -> MaybeT IO [handle]
+		open :: KeyFor server -> server -> MaybeT IO server
+		close :: server -> IO ()
+		actions :: server -> [ActionFor server]
+		perform :: (ActionFor server) -> handle -> MaybeT IO (ResultFor server)
+	
+	-- "Wire" class deals with handle interactions between servers
+	
+	class (Server s1 h1, Server s2 h2) => Wire s1 h1 s2 h2 where
+		transfer :: h1 -> s -> IO h2
+		trace :: h1 -> s -> IO h2 --}
+	
+	-- "SHandle" class used to handle files on different servers
+	
+	class SHandle h where
+		uid :: h -> Word64 -- this is a hack, MUST be fixed
+		name :: h -> String
+		author :: h -> String
+		split :: h -> IO (h, h)
+		withHandle :: (Handle -> IO a) -> h -> IO a
+		properties :: h -> IO [(String, String)]
+		set :: String -> a -> h -> IO h
+		command :: String -> h -> IO h
+	
+	class Similar a b where
+		similar :: a -> b -> Bool
+	
+	instance (SHandle a, SHandle b) => Similar a b where
+		similar h1 h2 = (uid h1) == (uid h2)
+	
+	-- Abstract from sources to pools
+	
+	data Source k q a r where
+		Source :: forall s h. (Server s h, Show s) => s -> Source (KeyFor s) (QueryFor s) (ActionFor s) (ResultFor s)
+	
+	data SourceHandle = forall h. (SHandle h, Show h) => SourceHandle h
+	
+	data PoolHandle = forall h. (SHandle h, Show h) => PoolHandle h
+	
+	instance SHandle SourceHandle where
+		uid (SourceHandle h) = uid h
+		name (SourceHandle h) = name h
+		author (SourceHandle h) = author h
+		split (SourceHandle h) = (\(h1, h2) -> (SourceHandle h1, SourceHandle h2)) <$> split h
+		withHandle f (SourceHandle h) = withHandle f h
+		properties (SourceHandle h) = properties h
+		set prop value (SourceHandle h) = SourceHandle <$> set prop value h
+		command cmd (SourceHandle h) = SourceHandle <$> command cmd h
+	
+	instance SHandle PoolHandle where
+		uid (PoolHandle h) = uid h
+		name (PoolHandle h) = name h
+		author (PoolHandle h) = author h
+		split (PoolHandle h) = (\(h1, h2) -> (PoolHandle h1, PoolHandle h2)) <$> split h
+		withHandle f (PoolHandle h) = withHandle f h
+		properties (PoolHandle h) = properties h
+		set prop value (PoolHandle h) = PoolHandle <$> set prop value h
+		command cmd (PoolHandle h) = PoolHandle <$> command cmd h
+	
+	instance Show SourceHandle where
+		show (SourceHandle h) = "SourceHandle " ++ (show h)
+	
+	instance Show PoolHandle where
+		show (PoolHandle h) = "PoolHandle " ++ (show h)
+	
+	instance Show (Source k q a r) where
+		show (Source s) = "Source " ++ (show s)
+	
+	--Both Source and Pool are instances of Server
+	
+	instance Server (Source k q a r) SourceHandle where
+		type KeyFor (Source k q a r) = [k]
+		type QueryFor (Source k q a r) = q
+		--type HandleFor (Source k q a r) = SourceHandle
+		type ActionFor (Source k q a r) = a
+		type ResultFor (Source k q a r) = r
+		
+		open [] (Source s) = MaybeT $ return Nothing
+		open (k:keys) (Source s) = (Source <$> open k s) `mplus` (open keys (Source s))
+		
+		close (Source s) = Server.close s
+		
+		actions (Source s) = actions s
+		
+		lookup queries actions (Source s) = map SourceHandle <$> Server.lookup queries actions s
+	
+	instance Server [Source k q a r] PoolHandle where
+		type KeyFor [Source k q a r] = [k]
+		type QueryFor [Source k q a r] = q
+		--type HandleFor [Source k q a r] = SourceHandle
+		type ActionFor [Source k q a r] = a
+		type ResultFor [Source k q a r] = r
+		
+		-- all or none behavior when using keys (can these be rewritten more elegantly?)
+		
+		open key [] = return []
+		open key (s:ss) = (:) <$> open key s <*> open key ss
+		
+		close ss = forM_ ss Server.close
+		
+		lookup queries actions [] = return []
+		lookup q a pool = nubb <$> map PoolHandle <$> lookup' q a pool
+			where
+				lookup' queries actions [] = return []
+				lookup' queries actions (s:ss) = (++) <$> Server.lookup queries actions s <*> lookup' queries actions ss
+		
+		actions pool = undefined --TODO
+	
+	nubb [] = []
+	nubb (x:xs) = iff (present x xs) (nubb xs) (nubb (x:xs))
+	
+	present a [] = False
+	present (PoolHandle h) ((PoolHandle h') : shs) = (similar h h') || (present (PoolHandle h) shs)
+	
+	iff True x y = x
+	iff False x y = y

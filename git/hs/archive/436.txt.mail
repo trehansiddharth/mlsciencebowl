@@ -1,0 +1,52 @@
+Delivered-To: mlsciencebowl@gmail.com
+Received: by 10.86.81.1 with SMTP id e1cs70074fgb;
+        Thu, 8 Oct 2009 22:15:04 -0700 (PDT)
+Received: by 10.101.205.8 with SMTP id h8mr2453123anq.142.1255065303541;
+        Thu, 08 Oct 2009 22:15:03 -0700 (PDT)
+Return-Path: <nkhl_kotha@yahoo.com>
+Received: from web45201.mail.sp1.yahoo.com (web45201.mail.sp1.yahoo.com [68.180.197.50])
+        by mx.google.com with SMTP id 27si2416654iwn.113.2009.10.08.22.15.01;
+        Thu, 08 Oct 2009 22:15:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of nkhl_kotha@yahoo.com designates 68.180.197.50 as permitted sender) client-ip=68.180.197.50;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of nkhl_kotha@yahoo.com designates 68.180.197.50 as permitted sender) smtp.mail=nkhl_kotha@yahoo.com; dkim=pass (test mode) header.i=@yahoo.com
+Received: (qmail 84941 invoked by uid 60001); 9 Oct 2009 05:15:01 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024; t=1255065301; bh=lQecni02esoanDs2DZU7NP5w3vqTKnr6i6UGwqmJ4Hs=; h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type; b=310GiwWUFUgrSC2YKS8JL1i4wL7ouNbcdym3Jv6cNogsGF9xT309aMyABk2UdNpgMvH4r7XkKNABB7X9aTrqf/Q9NHxoFyoyMR8zzccltuCeqWKDRXT5qhYI+WkmMhjMt0C4zFzyvDxeFxonTwy1Bt2RcQ9zHuZqWblVjTLiUew=
+DomainKey-Signature:a=rsa-sha1; q=dns; c=nofws;
+  s=s1024; d=yahoo.com;
+  h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
+  b=IjrpxwsGT0B6aI/m3epozymXF7zAIV/5+IhknUPlnRIUCqdxEnsE4nH4rs8GqIQMvmYpHKoyI8kDvJoIqmDmQwFDDqTJzDgWT/Zez+pw46dfxxtnyCIFoAKI4wpvjIkF25lKxEI5d3jQNNOcLSd4tMIpsZD+iLWJioSDvpM4ykI=;
+Message-ID: <267722.84542.qm@web45201.mail.sp1.yahoo.com>
+X-YMail-OSG: SFv2bjIVM1mQHY7ZqO72TjqxD9TWMge_3y9bUfZzdPL2E0mxHhJAPhUG32bTjf8FgaHBE4pGmeWV1TzRSecW95Fz8CYXpoxKS8XCyqNykx0nHSZ_1dlgz6u_hZLxsY9AOgP49BvfV4.ZxSkTp4.Ph.LlqaTDYw4uhS2IpTrH_kxm_9RnaBDSRUpK3VxQPVrD7djo80HqenxqCkihNnrWdSP4HsCh86y2TUVBWfE1De.kY02xF.TySKl.vL41COD_zKFlQa8QraxlAw.eN9sx
+Received: from [71.142.54.243] by web45201.mail.sp1.yahoo.com via HTTP; Thu, 08 Oct 2009 22:15:01 PDT
+X-Mailer: YahooMailRC/182.10 YahooMailWebService/0.7.347.3
+Date: Thu, 8 Oct 2009 22:15:01 -0700 (PDT)
+From: Nikhil Kotha <nkhl_kotha@yahoo.com>
+Subject: Science Bowl Questions
+To: mlsciencebowl@gmail.com
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="0-1993572731-1255065301=:84542"
+
+--0-1993572731-1255065301=:84542
+Content-Type: text/plain; charset=us-ascii
+
+Hello,
+
+Here are my 50 questions. Will we just be practicing the simulation of the competition at each meeting?
+
+Regards,
+Nikhil Kotha
+
+
+      
+--0-1993572731-1255065301=:84542
+Content-Type: text/html; charset=us-ascii
+
+<html><head><style type="text/css"><!-- DIV {margin:0px;} --></style></head><body><div style="font-family:times new roman, new york, times, serif;font-size:12pt"><DIV>Hello,</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Here are my 50 questions. Will we just be practicing the simulation of the competition at each meeting?</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Regards,</DIV>
+<DIV>Nikhil Kotha</DIV></div><br>
+
+      </body></html>
+--0-1993572731-1255065301=:84542--

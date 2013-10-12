@@ -1,0 +1,52 @@
+-- Written by Siddharth Trehan
+
+module Main where
+	
+	import Round
+	import System.IO
+	import Data.List.Utils
+	import Data.List
+	
+	main = do
+				contents <- getContents
+				let round = read contents :: Round
+				let result = latex round
+				final <- if (issingle . head . (\(Round x) -> x) $ round) then (embedlightning result) else (embedteam result)
+				putStrLn final
+	
+	issingle (Single _) = True
+	issingle (Double _ _) = False
+	
+	embedlightning str = do
+							frame <- readFile "lightningtemplate.tex"
+							return $ replace "%%%INSERT%%%" str frame
+	
+	embedteam str = do
+							frame <- readFile "teamtemplate.tex"
+							return $ replace "%%%INSERT%%%" str frame
+	
+	latex = concat . intersperse "\n\n" . map texquestion . (\(Round x) -> x)
+	
+	texquestion (Single question) = texparse question
+	texquestion (Double qtossup qbonus) = "\\subject{" ++ (parsesubj . getsubject $ qtossup) ++ "}\n\n" ++ texparse' qtossup ++ "\n\n" ++ texparse' qbonus
+	
+	texparse (Short _ subj text answer) = "\\short{" ++ parsesubj subj ++ "}{" ++ text' ++ "}\n{" ++ answer ++ "}"
+		where
+			text' = replace "\n" "\n\n" . dropWhile (== '\n') . reverse . dropWhile (== '\n') . reverse $ text
+	texparse (Multiple _ subj text choices answer) = "\\multiple{" ++ parsesubj subj ++ "}{" ++ text' ++ "}\n{" ++ choices !! 0 ++ "}\n{" ++ choices !! 1 ++ "}\n{" ++ choices !! 2 ++"}\n{" ++ choices !! 3 ++ "}{" ++ answer ++ "}"
+		where
+			text' = replace "\n" "\n\n" . dropWhile (== '\n') . reverse . dropWhile (== '\n') . reverse $ text
+	
+	texparse' (Short _ subj text answer) = "\\short{" ++ text' ++ "}\n{" ++ answer ++ "}"
+		where
+			text' = replace "\n" "\n\n" . dropWhile (== '\n') . reverse . dropWhile (== '\n') . reverse $ text
+	texparse' (Multiple _ subj text choices answer) = "\\multiple{" ++ text' ++ "}\n{" ++ choices !! 0 ++ "}\n{" ++ choices !! 1 ++ "}\n{" ++ choices !! 2 ++"}\n{" ++ choices !! 3 ++ "}{" ++ answer ++ "}"
+		where
+			text' = replace "\n" "\n\n" . dropWhile (== '\n') . reverse . dropWhile (== '\n') . reverse $ text
+	
+	parsesubj Biology = "Biology"
+	parsesubj Chemistry = "Chemistry"
+	parsesubj Physics = "Physics"
+	parsesubj Math = "Math"
+	parsesubj ERSP = "Earth and Space"
+	parsesubj Energy = "Energy"
