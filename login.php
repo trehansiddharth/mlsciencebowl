@@ -29,20 +29,16 @@ if ($rows == 1)
 	{
 		session_start();
 		$_SESSION['username'] = $username;
-		$_SESSION['loggedin'] = "debroglie";
+		$_SESSION['loggedin'] = $password;
 		$_SESSION['uid'] = $uid;
 		
 		$result = mysql_query("SELECT * FROM queue");
 		if (!$result) die ("Database access failed: " . mysql_error());
 		$_SESSION['queuecount'] = mysql_num_rows($result);
 		
-		$result = mysql_query("SELECT * FROM qunread");
+		$result = mysql_query("SELECT * FROM questions WHERE timesread = 0");
 		if (!$result) die ("Database access failed: " . mysql_error());
 		$_SESSION['databasecount'] = mysql_num_rows($result);
-		
-		$result = mysql_query("SELECT * FROM lastadded");
-		if (!$result) die ("Database access failed: " . mysql_error());
-		$_SESSION['readercount'] = mysql_num_rows($result);
 		
 		header("Location: queue.php");
 		exit;
@@ -54,7 +50,35 @@ if ($rows == 1)
 }
 else
 {
-		echo "Your username was incorrect. Press the back button to try again.";
+		$passwordquery = mysql_query("SELECT * FROM userpermissions WHERE password = '$password'");
+		$hits = mysql_num_rows($passwordquery);
+		
+		if ($hits == 1)
+		{
+			$utype = mysql_result($passwordquery, 0, 'utype');
+			$adduserquery = mysql_query("INSERT INTO users VALUES(DEFAULT, '$username', '$email', '$utype')");
+			$uid = mysql_insert_id();
+						
+			session_start();
+			$_SESSION['username'] = $username;
+			$_SESSION['loggedin'] = $password;
+			$_SESSION['uid'] = $uid;
+			
+			$result = mysql_query("SELECT * FROM queue");
+			if (!$result) die ("Database access failed: " . mysql_error());
+			$_SESSION['queuecount'] = mysql_num_rows($result);
+			
+			$result = mysql_query("SELECT * FROM questions WHERE timesread = 0");
+			if (!$result) die ("Database access failed: " . mysql_error());
+			$_SESSION['databasecount'] = mysql_num_rows($result);
+			
+			header("Location: queue.php");
+			exit;
+		}
+		else
+		{
+			echo "You are not registered on the system. Please press the back button to try again.";
+		}
 }
 ?>
 

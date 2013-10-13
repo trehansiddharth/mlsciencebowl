@@ -16,7 +16,7 @@ mysql_select_db($db_database) or die("Unable to select database: " . mysql_error
 
 //Load session variables
 
-if ($_SESSION['loggedin'] != "debroglie")
+if ($_SESSION['loggedin'] != "stefanboltzmann")
 {
 	header("Location: index.html");
 	exit;
@@ -25,7 +25,6 @@ if ($_SESSION['loggedin'] != "debroglie")
 $username = $_SESSION['username'];
 $queuecount = $_SESSION['queuecount'];
 $databasecount = $_SESSION['databasecount'];
-$readercount = $_SESSION['readercount'];
 ?>
 <html lang="en">
 	<head>
@@ -57,7 +56,8 @@ $readercount = $_SESSION['readercount'];
 					<li><a href="#">
 						<?php echo $username ?>
 					</a> <span class="divider">/</span></li>
-					<li class="active">Database</li>
+					<li><a href="#">Database</a> <span class="divider">/</span></li>
+					<li class="active">Search for Questions</li>
 				</ul>
 				<ul class="nav nav-tabs">
 					<li><a href="queue.php">Queue <span class="badge badge-warning">
@@ -66,18 +66,25 @@ $readercount = $_SESSION['readercount'];
 					<li class="active"><a href="database.php">Database <span class="badge badge-success">
 						<?php echo $databasecount ?>
 					</span></a></li>
-					<li><a href="assignments.php">Assignments</a></li>
 					<li><a href="users.php">Users</a></li>
-					<li><a href="reader.php">Reader <span class="badge badge-warning">
+					<!--<li><a href="reader.php">Reader <span class="badge badge-warning">
 						<?php echo $readercount ?>
-					</span></a></li>
+					</span></a></li>-->
 					<li><a href="upload.php">Upload</a></li>
 				</ul>
 				<h2>Database</h2>
 			</div>
 			<form class="form-inline" role="form" method="post" action="read.php">
 			<div class="row-fluid">
+				<!--<div class="span2">
+				</div>-->
 				<div class="span12">
+					<ul class="nav nav-pills">
+						<li class="active"><a href="#">Search for Questions</a></li>
+						<li><a href="#">Search for Rounds</a></li>
+						<li><a href="#">Download Visual Bonus Rounds</a></li>
+						<li><a href="#">Download Raw Rounds</a></li>
+					</ul>
 					<table class="table">
 						<thead>
 							<tr>
@@ -91,7 +98,7 @@ $readercount = $_SESSION['readercount'];
 								<td>
 									<label>
 										Format: 
-										<select class="form-control">
+										<select class="form-control" name="format">
 											<option>Lightning</option>
 											<option>Full</option>
 											<option>Visual Bonus</option>
@@ -99,7 +106,7 @@ $readercount = $_SESSION['readercount'];
 									</label> <br />
 									<label>
 										Difficulty: 
-										<select class="form-control">
+										<select class="form-control" name="difficulty">
 											<option>Early Regionals</option>
 											<option selected="selected">Late Regionals</option>
 											<option>Middle Nationals</option>
@@ -113,7 +120,7 @@ $readercount = $_SESSION['readercount'];
 								<td>
 									<label>
 										Biology: 
-										<select class="form-control">
+										<select class="form-control" name="biology">
 											<option>High</option>
 											<option selected="selected">Medium</option>
 											<option>Low</option>
@@ -122,7 +129,7 @@ $readercount = $_SESSION['readercount'];
 									</label> <br />
 									<label>
 										Chemistry: 
-										<select class="form-control">
+										<select class="form-control" name="chemistry">
 											<option>High</option>
 											<option selected="selected">Medium</option>
 											<option>Low</option>
@@ -131,7 +138,7 @@ $readercount = $_SESSION['readercount'];
 									</label> <br />
 									<label>
 										Physics: 
-										<select class="form-control">
+										<select class="form-control" name="physics">
 											<option>High</option>
 											<option selected="selected">Medium</option>
 											<option>Low</option>
@@ -140,7 +147,7 @@ $readercount = $_SESSION['readercount'];
 									</label> <br />
 									<label>
 										Math: 
-										<select class="form-control">
+										<select class="form-control" name="math">
 											<option>High</option>
 											<option selected="selected">Medium</option>
 											<option>Low</option>
@@ -149,7 +156,7 @@ $readercount = $_SESSION['readercount'];
 									</label> <br />
 									<label>
 										Earth and Space: 
-										<select class="form-control">
+										<select class="form-control" name="ersp">
 											<option>High</option>
 											<option selected="selected">Medium</option>
 											<option>Low</option>
@@ -158,7 +165,7 @@ $readercount = $_SESSION['readercount'];
 									</label> <br />
 									<label>
 										Energy/General Science: 
-										<select class="form-control">
+										<select class="form-control" name="energy">
 											<option>High</option>
 											<option selected="selected">Medium</option>
 											<option>Low</option>
@@ -174,27 +181,38 @@ $readercount = $_SESSION['readercount'];
 										<!--<button class="btn btn-default" type="button">Select</button><br />-->
 										<table class="table table-bordered">
 											<thead>
-												<td class="span2"><i>Name/Group</i></td>
+												<td class="span2"><b>Names</b></td>
 											</thead>
-											<tbody>
-												<!--<tr>
-													<td><i>All</i></td>
-												</tr>-->
 												<tr>
 													<td>
-														<input type="text" class="form-control" id="author" placeholder="Enter name or group to add"></input>
+														<input type="text" class="form-control" id="author" placeholder="Enter name to add"></input>
 													</td>
 												</tr>
 											</tbody>
 										</table>
-									</div> <br />
+									</div>
+									<div class="input-group">
+										<!--<button class="btn btn-default" type="button">Select</button><br />-->
+										<table class="table table-bordered">
+											<thead>
+												<td class="span2"><b>Groups</b></td>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<input type="text" class="form-control" id="author" placeholder="Enter group to add"></input>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</td>
 							</tr>
 							<tr>
 								<td><b>Question Sources</b></td>
 								<td>
-									<label><input type="checkbox" checked="checked" /> Assorted Rounds</label> <br />
-									<label><input type="checkbox" checked="checked" /> Subject Rounds</label> <br />
+									<label><input type="checkbox" checked="checked" name="assorted" /> Assorted Rounds</label> <br />
+									<label><input type="checkbox" checked="checked" name="subject" /> Subject Rounds</label> <br />
 								</td>
 							</tr>
 							<tr>
@@ -202,7 +220,7 @@ $readercount = $_SESSION['readercount'];
 								<td>
 									<label>
 										Not read: 
-										<select class="form-control">
+										<select class="form-control" name="read">
 											<option>In the past two weeks</option>
 											<option selected="selected">In the past three months</option>
 											<option>In the past six months</option>

@@ -14,7 +14,7 @@ if (!$db_server) die("Unable to connect to MySQL: " . mysql_error());
 
 mysql_select_db($db_database) or die("Unable to select database: " . mysql_error());
 
-if ($_SESSION['loggedin'] != "debroglie")
+if ($_SESSION['loggedin'] != "stefanboltzmann")
 {
 	header("Location: index.html");
 	exit;
@@ -22,7 +22,6 @@ if ($_SESSION['loggedin'] != "debroglie")
 
 $username = $_SESSION['username'];
 $databasecount = $_SESSION['databasecount'];
-$readercount = $_SESSION['readercount'];
 
 $query = "SELECT * FROM queue";
 $result = mysql_query($query);
@@ -77,6 +76,7 @@ $_SESSION['queuecount'] = $queuecount;
 					response = xmlHttp.responseText;
 				}
 			}
+			location.reload();
 		}
     	</script>
     	
@@ -95,11 +95,10 @@ $_SESSION['queuecount'] = $queuecount;
 					<li><a href="database.php">Database <span class="badge badge-success">
 						<?php echo $databasecount ?>
 					</span></a></li>
-					<li><a href="assignments.php">Assignments</a></li>
 					<li><a href="users.php">Users</a></li>
-					<li><a href="reader.php">Reader <span class="badge badge-warning">
+					<!--<li><a href="reader.php">Reader <span class="badge badge-warning">
 						<?php echo $databasecount ?>
-					</span></a></li>
+					</span></a></li>-->
 					<li><a href="upload.php">Upload</a></li>
 				</ul>
 				<h2>Queue</h2>
@@ -116,11 +115,11 @@ $_SESSION['queuecount'] = $queuecount;
 						}
 						echo "<p><b> $rows round$pluralr</b> $pluralis awaiting submission:</p>";
 					?>
-					<table class="table table-hover">
+					<table class="table table-hover table-striped">
 						<thead>
 							<tr>
 								<th class="span3">Name</th>
-								<th class="span6">Round</th>
+								<th class="span6">Assignment</th>
 								<th class="span3">Type</th>
 							</tr>
 						</thead>
@@ -144,7 +143,7 @@ $_SESSION['queuecount'] = $queuecount;
 									$trclass = 'error';
 								}
 								
-								echo '<tr class="' . $trclass . '">';
+								echo '<tr>'; //'<tr class="' . $trclass . '">';
 								$rid = mysql_result($result, $j, 'rid');
 								echo '<td><label class="checkbox"><input type="checkbox" name="queuebox" id="' . $rid . '"/><span class="glyphicon glyphicon-user"></span><b>';
 								$uid = mysql_result($result,$j,'uploader');

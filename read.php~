@@ -25,7 +25,6 @@ if ($_SESSION['loggedin'] != "debroglie")
 $username = $_SESSION['username'];
 $queuecount = $_SESSION['queuecount'];
 $databasecount = $_SESSION['databasecount'];
-$readercount = $_SESSION['readercount'];
 ?>
 <html lang="en">
 	<head>
@@ -81,7 +80,7 @@ $readercount = $_SESSION['readercount'];
 					<center><h3>Physics</h3></center>
 					<p><b>Multiple Choice</b></p>
 					<div class="well">
-					The Reynolds number is a dimensionless factor that determines 
+					<p>The Reynolds number is a dimensionless factor that determines 
 
 the onset of turbulence in a tube. Which of the following choices, when increased, would account 
 
@@ -95,7 +94,7 @@ Y) velocity of the fluid<br />
 
 Z) diameter of the tube<br />
 
-ANSWER: W) VISCOSITY OF THE FLUID
+ANSWER: W) VISCOSITY OF THE FLUID</p>
 
 </div>
 <p><b>Short Answer</b></p>

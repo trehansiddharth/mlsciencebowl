@@ -80,7 +80,7 @@ if [ "$extension" = "preround" ]
 then
 	#newfilename=$(dirname $FILE | sed -i 's,/,-,g')
 	./compile < "$FILE" > "$DEST/$filename.round"
-	rm "bin/$filename.preround"
+	#rm "bin/$filename.preround"
 	extension=round
 fi
 

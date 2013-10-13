@@ -15,12 +15,12 @@ module Round where
 	data Subject	=	Biology | Chemistry | Physics | Math | ERSP | Energy
 						deriving (Show, Eq, Read)
 	
-	data Ask		=	Short Tag Subject String String |
-						Multiple Tag Subject String [String] String
+	data Ask		=	Short Subject String String |
+						Multiple Subject String [String] String
 						deriving (Show, Eq, Read)
 	
-	getsubject (Short _ subj _ _) = subj
-	getsubject (Multiple _ subj _ _ _) = subj
+	getsubject (Short subj _ _) = subj
+	getsubject (Multiple subj _ _ _) = subj
 	
 	data Question	=	Single Ask | Double Ask Ask
 						deriving (Show, Eq, Read)
@@ -179,9 +179,9 @@ module Round where
 			oldanswerparse = parseanswer $ last question
 			realanswerparse =  realquestion >>= parseanswer . last
 	
-	toquestion tag Nothing = Nothing
-	toquestion tag (Just ((sub, MultipleChoice, text), choices, ans)) = Just $ Multiple tag sub text choices ans
-	toquestion tag (Just ((sub, ShortAnswer, text), body, ans)) = Just $ Short tag sub gettext ans
+	toquestion Nothing = Nothing
+	toquestion (Just ((sub, MultipleChoice, text), choices, ans)) = Just $ Multiple sub text choices ans
+	toquestion (Just ((sub, ShortAnswer, text), body, ans)) = Just $ Short sub gettext ans
 		where
 			gettext = text ++ "\n\n" ++ (intercalate "\n\n" body)
 	

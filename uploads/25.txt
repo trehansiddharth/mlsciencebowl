@@ -1,0 +1,283 @@
+1. EARTH AND SPACE: Multiple Choice: Out of the following stars, which of the following 
+
+would be expected to have the shortest overall lifetime?
+
+W) Rigel A
+
+X) the sun
+
+Y) Barnard's star
+
+Z) Sirius A
+
+ANSWER: W) Rigel A
+
+2. CHEMISTRY: Multiple Choice: The Nernst equation is used to solve for which of the 
+
+following in an electrochemical cell?
+
+W) the standard potential of the cell
+
+X) the cell potential under standard conditions
+
+Y) the cell potential under nonstandard conditions
+
+Z) the current in a cell under standard conditions
+
+3. PHYSICS: Short Answer: Susie is riding her bike at a speed of 10 m/s when suddenly she 
+
+sees a boulder up ahead. She brakes, and decelerates at a constant rate of 25 m/s^2. What is the 
+
+minimum distance away the boulder must be, in meters, to give her enough space to come to a 
+
+complete stop?
+
+ANSWER: 2 meters
+
+4. BIOLOGY: Short Answer: Transcribe the following section of DNA into RNA, beginning at 
+
+the 3 prime end:
+
+5' ATG CGC ACT 3'
+
+ANSWER: 3' UAC GCG UGA 5'
+
+5. MATH: Short Answer: What is the average value of the function y = x over the interval 0 to 
+
+6? 
+
+ANSWER: 3
+
+6. ENERGY: Multiple Choice: Wind turbines have a maximum power they can extract from the 
+
+wind, given by Betz' law. Which of the following percentages is closest to the maximum possible 
+
+efficiency of a turbine as given by the Betz' limit?
+
+W) 19%
+
+X) 32%
+
+Y) 59%
+
+Z) 83%
+
+ANSWER: Y) 59%
+
+7. EARTH AND SPACE: Short Answer: By name or number, list the following four rocks in 
+
+order of increasing metamorphic grade
+
+1. schist
+
+2. phyllite
+
+3. gneiss
+
+4. slate
+
+ANSWER: 4, 2, 1, 3 (slate, phyllite schist, gniess)
+
+8. CHEMSITRY: Multiple Choice: When bonded with alkaline earth elements, which of the 
+
+following anions will form the largest number of insoluble compounds?
+
+W) nitrate
+
+X) carbonate
+
+Y) iodide
+
+Z) chlorate
+
+9. PHYSICS: Short Answer: By name or number, identify all of the following 4 changes to a 
+
+solid which would increase the speed of sound in that material, assuming all other properties 
+
+remain constant:
+
+1. increasing the bulk modulus
+
+2. decreasing the bulk modulus
+
+3. increasing the density
+
+4. decreasing the density
+
+ANSWER: 1 and 4 
+
+10. BIOLOGY: Multiple Choice: At which of the following checkpoints do cells exit the cell 
+
+cycle and go into the G0 phase?
+
+W) G1
+
+X) G2
+
+Y) S
+
+Z) M
+
+ANSWER: W) G1
+
+11. MATH: Multiple Choice: A particle moves with acceleration (in meters per second squared) 
+
+of a(t) = t^2 + t with an initial velocity of 5 m/s. How many times does the particle change 
+
+direction, for all real values of t?
+
+W) 0
+
+X) 1
+
+Y) 2
+
+Z) 3
+
+ANSWER: X) 1
+
+12. ENERGY: Short Answer: During glycolysis, what is the NET amount of ATP produced?
+
+ANSWER: 2
+
+13. EARTH AND SPACE SCIENCE: Short Answer: What stellar remnant will our sun most 
+
+likely form after it collapses?
+
+ANSWER: WHITE DWARF
+
+14. CHEMISTRY: Multiple Choice: A solution of hydrocyanic acid is titrated with a sodium 
+
+hydroxide. Which of the following values most likely would represent the pH at the equivalence 
+
+point?
+
+W) 5.4
+
+X) 7.0
+
+Y) 8.2
+
+Z) 13.8
+
+ANSWER: Y) 8.2
+
+15. PHYSICS: Short Answer: A charged particle is shot into a uniform magnetic field and begins 
+
+to go in a circular path. By name or number, identify all of the following three changes which 
+
+would result is a circular path with a smaller radius 
+
+1. increasing the strength of the magnetic field
+
+2. reversing the direction of the magnetic field
+
+3. increasing the mass of the particle
+
+ANSWER: 1 ONLY
+
+16. BIOLOGY: Short Answer: What two types of glia produce myelin sheaths in the central 
+
+nervous and peripheral nervous system, respectively?
+
+ANSWER: OLIGODENDROCYTES AND SCHWANN CELLS
+
+17. MATH: Multiple Choice: Which of the following functions has a vertical asymptote at x = -1 
+
+and a horizontal asymptote at y = 2?
+
+W) f(x) = (x-1)/(2x+2)
+
+X) f(x) - e^(x-1) + 2
+
+Y) f(x) = (2x^2 +1)/(x^2 - 1)
+
+Z) f(x) = ln(2x+2)
+
+ANSWER: W) f(x) = (x-1)/(2x+2)
+
+18. ENERGY: Short Answer: What two industrial processes are commonly used today to 
+
+produce alumina from bauxite and aluminum from alumina?
+
+ANSWER: BAYER AND HALL HEROULT
+
+19. EARTH AND SPACE: Multiple Choice: The San Andreas fault is an example of a
+
+W) slip-dip fault
+
+X) thrust fault
+
+Y) listric fault
+
+Z) strike-slip fault
+
+ANSWER: Z) STRIKE-SLP FAULT
+
+20. CHEMISTRY: Multiple Choice: Suppose there are two gases, A and B with the same molar 
+
+mass, and which are both at 273 K and 1 atm of pressure. One mole of gas A occupies 22.4 L 
+
+of space, while a mole of gas b occupies 22.0 L of space under these conditions. Based on this 
+
+information, which of the following statements is correct?
+
+W) Gas B is an ideal gas
+
+X) the molecules in gas A have a greater average speed than the ones in gas B
+
+Y) intermolecular attractions are dominant in gas B
+
+Z) both gases have a compression factor of exactly 1
+
+ANSWER: Y) intermolecular attractions are dominant in gas B
+
+21. PHYSICS: Short Answer: By name or number, identify all of the following three that are 
+
+isolated systems
+
+1. a open beaker in which an exothermic reaction is taking place
+
+2. a sealed, well-insulated thermos bottle
+
+3. the earth
+
+ANSWER: 2 ONLY
+
+22. BIOLOGY: Short Answer: Golden rice is a variety of genetically engineered rice which 
+
+can biosynthesize beta carotene. What deficiency does golden rice aim to combat in developng 
+
+countries?
+
+ANSWER: VITAMIN A DEFICIENCY
+
+23. MATHEMATICS: Short Answer: John can mow 2 lawns in an hour. The next time he goes 
+
+to mow lawns, he brings his friend Pete, who can mow three lawns in an hour, to help him. If 
+
+the two have three lawns to mow, how many hours and minutes will it take them to complete the 
+
+task?
+
+ANSWER: 36 MINUTES
+
+24. EARTH AND SPACE: Multiple Choice: Which of the following stars has the most positive 
+
+apparent magnitude in the sky?
+
+W) the sun
+
+X) polaris
+
+Y) sirius
+
+Z) bellatrix
+
+ANSWER: X) POLARIS
+
+25. CHEMISTRY: Short Answer: When a carboxylic acid is reacted with an alcohol, what class 
+
+of compounds are obtained?
+
+ANSWER: ESTER

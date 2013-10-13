@@ -16,7 +16,7 @@ mysql_select_db($db_database) or die("Unable to select database: " . mysql_error
 
 //Load session variables
 
-if ($_SESSION['loggedin'] != "debroglie")
+if ($_SESSION['loggedin'] != "stefanboltzmann")
 {
 	header("Location: index.html");
 	exit;
@@ -25,7 +25,6 @@ if ($_SESSION['loggedin'] != "debroglie")
 $username = $_SESSION['username'];
 $queuecount = $_SESSION['queuecount'];
 $databasecount = $_SESSION['databasecount'];
-$readercount = $_SESSION['readercount'];
 ?>
 <html lang="en">
 	<head>

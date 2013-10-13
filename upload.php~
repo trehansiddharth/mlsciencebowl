@@ -12,7 +12,7 @@ if (!$db_server) die("Unable to connect to MySQL: " . mysql_error());
 
 mysql_select_db($db_database) or die("Unable to select database: " . mysql_error());
 
-if ($_SESSION['loggedin'] != "debroglie")
+if ($_SESSION['loggedin'] != "stefanboltzmann")
 {
 	header("Location: index.html");
 	exit;
@@ -23,37 +23,45 @@ if ($_SESSION['loggedin'] != "debroglie")
 $username = $_SESSION['username'];
 $queuecount = $_SESSION['queuecount'];
 $databasecount = $_SESSION['databasecount'];
-$readercount = $_SESSION['readercount'];
+
+function writeUTF8File($filename,$content) { 
+        $f=fopen($filename,"w"); 
+        # Now UTF-8 - Add byte order mark 
+        fwrite($f, pack("CCC",0xef,0xbb,0xbf)); 
+        fwrite($f,$content); 
+        fclose($f); 
+}
 
 // Handle upload
 
+$assignment = $_POST['assignment'];
 $format = $_POST['format'];
 $subjects = $_POST['subjects'];
 $difficulty = $_POST['difficulty'];
+$contents = $_POST['contents'];
 $uid = $_SESSION['uid'];
 
 if ($format != "")
 {
-	$file_path = "uploads/";
-	$filename = basename($_FILES['file']['name'], '.doc');
-	$file_path = $file_path . $filename . '.doc';
-	
 	$success = "danger";
 	
-	if(move_uploaded_file($_FILES['file']['tmp_name'], $file_path))
-	{
-		chmod($file_path, 0755);
-		$success = "success";
+	echo "INSERT INTO queue VALUES(DEFAULT, $uid, '$assignment', '$format', '$subjects', '$difficulty', 'Complete')";
 		
-		$result = shell_exec('./toround.sh "' . $file_path . '" hs/web');
+	$filequery = "INSERT INTO queue VALUES(DEFAULT, $uid, '$assignment', '$format', '$subjects', '$difficulty', 'Complete')";
+	$fileresult = mysql_query($filequery);
+	
+	$rid = mysql_insert_id();
+	
+	$file_path = "uploads/" . $rid . ".txt";
+	
+	file_put_contents($file_path, $contents);
+	
+	chmod($file_path, 0755);
+	$success = "success";
 		
-		echo $result;
-		
-		$hs_path = 'hs/web/' . $filename . '.round';
-		
-		$filequery = "INSERT INTO queue VALUES(DEFAULT, $uid, 1, '$format', '$subjects', '$difficulty', 'Complete', '$hs_path')";
-		$fileresult = mysql_query($filequery);
-	}
+	$result = shell_exec('./toround.sh "' . $file_path . '" ' . $rid);
+	
+	//echo $result;
 }
 
 ?>
@@ -96,11 +104,10 @@ if ($format != "")
 					<li><a href="database.php">Database <span class="badge badge-success">
 						<?php echo $databasecount ?>
 					</span></a></li>
-					<li><a href="assignments.php">Assignments</a></li>
 					<li><a href="users.php">Users</a></li>
-					<li><a href="reader.php">Reader <span class="badge badge-warning">
+					<!--<li><a href="reader.php">Reader <span class="badge badge-warning">
 						<?php echo $readercount ?>
-					</span></a></li>
+					</span></a></li>-->
 					<li class="active"><a href="upload.php">Upload</a></li>
 				</ul>
 				<h2>Upload</h2>
@@ -129,9 +136,7 @@ if ($format != "")
 						<div class="form-group">
 							<label>
 								Assignment: 
-								<select class="form-control" name="assignment">
-									<option>Extra</option>
-								</select>
+								<input type="text" class="form-control" name="assignment"></input>
 							</label>
 							<label>
 								Format: 
@@ -162,9 +167,11 @@ if ($format != "")
 									<option>Energy</option>
 								</select>
 							</label> <br />
-						</div>
-						<div class="form-group">
-							<input type="file" id="fileupload" name="file"> 
+							<label>
+								Copy and paste your round here: <br />
+								<textarea class="form-control" name="contents" id="contents"></textarea>
+								<span class="help-block">Click <a href="#">here</a> for criteria on how to format your round.</span>
+							</label>
 						</div><br />
 						<button type="submit" class="btn btn-default btn-primary">Upload</button>
 					</form>
