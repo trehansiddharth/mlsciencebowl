@@ -1,0 +1,18 @@
+<?php
+session_start();
+
+include '../dbinfo.php';
+
+include '../validateall.php';
+
+$qid = $_GET['qid'];
+$rid = $_GET['rid'];
+
+mysql_query("DELETE FROM qbank WHERE qid=$qid");
+mysql_query("DELETE FROM tempquestions WHERE qid1=$qid");
+mysql_query("DELETE FROM tempquestions WHERE qid2=$qid");
+
+header("Location: ../preview.php?rid=$rid");
+exit;
+
+?>

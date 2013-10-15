@@ -2,21 +2,9 @@
 <?php
 session_start();
 
-$db_hostname = "localhost";
-$db_database = "mlsciencebowl";
-$db_username = "mlsciencebowl";
-$db_password = "planck";
-$db_server = mysql_connect($db_hostname, $db_username, $db_password);
+include 'dbinfo.php';
 
-if (!$db_server) die("Unable to connect to MySQL: " . mysql_error());
-
-mysql_select_db($db_database) or die("Unable to select database: " . mysql_error());
-
-if ($_SESSION['loggedin'] != "stefanboltzmann")
-{
-	header("Location: index.html");
-	exit;
-}
+include 'validateall.php';
 
 // Load session variables
 
@@ -40,14 +28,11 @@ $subjects = $_POST['subjects'];
 $difficulty = $_POST['difficulty'];
 $contents = $_POST['contents'];
 $uid = $_SESSION['uid'];
+$success = $_GET['success'];
 
 if ($format != "")
-{
-	$success = "danger";
-	
-	echo "INSERT INTO queue VALUES(DEFAULT, $uid, '$assignment', '$format', '$subjects', '$difficulty', 'Complete')";
-		
-	$filequery = "INSERT INTO queue VALUES(DEFAULT, $uid, '$assignment', '$format', '$subjects', '$difficulty', 'Complete')";
+{		
+	$filequery = "INSERT INTO queue VALUES(DEFAULT, $uid, '$assignment', '$format', '$subjects', '$difficulty', 1)";
 	$fileresult = mysql_query($filequery);
 	
 	$rid = mysql_insert_id();
@@ -57,9 +42,13 @@ if ($format != "")
 	file_put_contents($file_path, $contents);
 	
 	chmod($file_path, 0755);
-	$success = "success";
+	
+	putenv('LANG=en_US.UTF-8');
 		
 	$result = shell_exec('./toround.sh "' . $file_path . '" ' . $rid);
+	
+	header("Location: preview.php?rid=$rid");
+	exit;
 	
 	//echo $result;
 }
@@ -98,17 +87,22 @@ if ($format != "")
 					<li class="active">Upload</li>
 				</ul>
 				<ul class="nav nav-tabs">
-					<li><a href="queue.php">Queue <span class="badge badge-warning">
-						<?php echo $queuecount ?>
-					</span></a></li>
-					<li><a href="database.php">Database <span class="badge badge-success">
-						<?php echo $databasecount ?>
-					</span></a></li>
-					<li><a href="users.php">Users</a></li>
-					<!--<li><a href="reader.php">Reader <span class="badge badge-warning">
-						<?php echo $readercount ?>
-					</span></a></li>-->
+					<?php
+					$adminquery = mysql_query("SELECT * FROM userpermissions WHERE utype='Admin'");
+					$adminpass = mysql_result($adminquery, 0, 'password');
+					if ($_SESSION['loggedin'] == $adminpass)
+					{
+						echo '<li><a href="queue.php">Queue <span class="badge badge-warning">';
+						echo $queuecount;
+						echo '</span></a></li>';
+						echo '<li><a href="database.php">Database <span class="badge badge-success">';
+						echo $databasecount;
+						echo '</span></a></li>';
+						echo '<li><a href="users.php">Inventory</a></li>';
+					}
+					?>
 					<li class="active"><a href="upload.php">Upload</a></li>
+					<li><a href="profile.php">Profile</a></li>
 				</ul>
 				<h2>Upload</h2>
 			</div>
@@ -117,7 +111,7 @@ if ($format != "")
 				</div>-->
 				<div class="span12">
 					<?php
-					if ($format != "")
+					if ($success != "")
 					{
 						echo '<div class="alert alert-dismissable alert-' . $success . '">';
 						echo '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
@@ -127,7 +121,7 @@ if ($format != "")
 						}
 						else
 						{
-							echo 'An error occured while uploading your round.';
+							echo 'Your round has not been uploaded.';
 						}
 						echo '</div>';
 					}
@@ -169,7 +163,7 @@ if ($format != "")
 							</label> <br />
 							<label>
 								Copy and paste your round here: <br />
-								<textarea class="form-control" name="contents" id="contents"></textarea>
+								<textarea class="form-control" name="contents" id="contents" rows="20" style="width:500px"></textarea>
 								<span class="help-block">Click <a href="#">here</a> for criteria on how to format your round.</span>
 							</label>
 						</div><br />

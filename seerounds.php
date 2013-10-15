@@ -41,7 +41,7 @@ $databasecount = $_SESSION['databasecount'];
 						<?php echo $username ?>
 					</a> <span class="divider">/</span></li>
 					<li><a href="#">Inventory</a> <span class="divider">/</span></li>
-					<li class="active">Users</li>
+					<li class="active">Rounds</li>
 				</ul>
 				<ul class="nav nav-tabs">
 					<li><a href="queue.php">Queue <span class="badge badge-warning">
@@ -60,54 +60,86 @@ $databasecount = $_SESSION['databasecount'];
 			<div class="row-fluid">
 				<div class="span12">
 					<ul class="nav nav-pills">
-						<li class="active"><a href="users.php">Users</a></li>
-						<li><a href="seerounds.php">Rounds</a></li>
+						<li><a href="users.php">Users</a></li>
+						<li class="active"><a href="seerounds.php">Rounds</a></li>
 					</ul>
 					<table class="table table-hover table-striped">
 						<thead>
 							<tr>
-								<th class="span3">Name</th>
-								<th class="span4">Email</th>
-								<th class="span4">Contributions</th>
-								<th class="span1">Permissions</th>
+								<th class="span1">Round ID</th>
+								<th class="span2">Author</th>
+								<th class="span2">Assignment</th>
+								<th class="span1">Format</th>
+								<th class="span2">Subject Spread</th>
+								<th class="span2">Difficulty</th>
+								<th class="span1">Number of Questions</th>
+								<th class="span2">Last Read</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-							$results = mysql_query("SELECT * FROM users ORDER BY utype ASC");
+							$results = mysql_query("SELECT * FROM rounds ORDER BY rid DESC");
 							$rows = mysql_num_rows($results);
 							
 							for ($j = 0; $j < $rows; ++$j)
 							{
-								$uid = mysql_result($results, $j, 'uid');
-								$username = mysql_result($results, $j, 'name');
-								$email = mysql_result($results, $j, 'email');
-								$permissions = mysql_result($results, $j, 'utype');
+								$rid = mysql_result($results, $j, 'rid');
+								$uid = mysql_result($results, $j, 'uploader');
+								$assignment = mysql_result($results, $j, 'assignment');
+								$format = mysql_result($results, $j, 'format');
+								$subjecttype = mysql_result($results, $j, 'subjecttype');
+								$difficulty = mysql_result($results, $j, 'difficulty');
+								$lastread = mysql_result($results, $j, 'lastread');
+								$timesread = mysql_result($results, $j, 'timesread');
 								
-								$numroundsquery = mysql_query("SELECT * FROM rounds WHERE uploader=$uid");
-								$numquestionsquery = mysql_query("SELECT * FROM questions WHERE uid=$uid");
+								if ($timesread == 0)
+								{
+									$lastread = "Never";
+								}
+								else
+								{
+									$lastread = new DateTime($lastread);
+									$lastread = $lastread->format('M d, Y');
+								}
 								
-								$numrounds = mysql_num_rows($numroundsquery);
+								$numquestionsquery = mysql_query("SELECT * FROM questions WHERE rid=$rid");
 								$numquestions = mysql_num_rows($numquestionsquery);
 								
-								$contributions = "$numrounds rounds and $numquestions questions";
+								$namequery = mysql_query("SELECT * FROM users WHERE uid=$uid");
+								$name = mysql_result($namequery, 0, 'name');
 								
 								echo "<tr>";
 								
 								echo "<td>";
-								echo $username;
+								echo $rid . " <a href=\"rounddisplay.php?rid=$rid\">[read]</a>";
 								echo "</td>";
 								
 								echo "<td>";
-								echo $email;
+								echo $name;
 								echo "</td>";
 								
 								echo "<td>";
-								echo $contributions;
+								echo $assignment;
 								echo "</td>";
 								
 								echo "<td>";
-								echo $permissions;
+								echo $format;
+								echo "</td>";
+								
+								echo "<td>";
+								echo $subjecttype;
+								echo "</td>";
+								
+								echo "<td>";
+								echo $difficulty;
+								echo "</td>";
+								
+								echo "<td>";
+								echo $numquestions;
+								echo "</td>";
+								
+								echo "<td>";
+								echo $lastread;
 								echo "</td>";
 								
 								echo "</tr>";

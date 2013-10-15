@@ -1,0 +1,35 @@
+<?php
+session_start();
+
+include '../dbinfo.php';
+
+include '../validateall.php';
+
+$qid = $_POST['qid'];
+$rid = $_POST['rid'];
+$text = $_POST['qtext'];
+$choicew = $_POST['choicew'];
+$choicex = $_POST['choicex'];
+$choicey = $_POST['choicey'];
+$choicez = $_POST['choicez'];
+$answer = $_POST['answer'];
+
+$text = mysql_real_escape_string($text);
+$answer = mysql_real_escape_string($answer);
+
+mysql_query("UPDATE qbank SET text='$text', answer='$answer' WHERE qid=$qid");
+
+if ($choicew != "")
+{
+	$choicew = mysql_real_escape_string($choicew);
+	$choicex = mysql_real_escape_string($choicex);
+	$choicey = mysql_real_escape_string($choicey);
+	$choicez = mysql_real_escape_string($choicez);
+	
+	mysql_query("UPDATE qbank SET choicew='$choicew', choicex='$choicex', choicey='$choicey', choicez='$choicez' WHERE qid=$qid");
+}
+
+header("Location: ../preview.php?rid=$rid");
+exit;
+
+?>

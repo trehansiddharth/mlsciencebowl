@@ -6,9 +6,8 @@ include 'dbinfo.php';
 
 include 'validateadmin.php';
 
-include 'updatedatabase.php';
-
 include 'updatequeue.php';
+include 'updatedatabase.php';
 
 $username = $_SESSION['username'];
 $queuecount = $_SESSION['queuecount'];
@@ -56,7 +55,7 @@ $urows = mysql_num_rows($userresults);
 						<?php echo $username ?>
 					</a> <span class="divider">/</span></li>
 					<li><a href="#">Database</a> <span class="divider">/</span></li>
-					<li class="active">Search for Questions</li>
+					<li class="active">Search for Rounds</li>
 				</ul>
 				<ul class="nav nav-tabs">
 					<li><a href="queue.php">Queue <span class="badge badge-warning">
@@ -71,14 +70,14 @@ $urows = mysql_num_rows($userresults);
 				</ul>
 				<h2>Database</h2>
 			</div>
-			<form class="form-inline" role="form" method="post" action="search.php">
+			<form class="form-inline" role="form" method="post" action="roundresults.php">
 			<div class="row-fluid">
 				<!--<div class="span2">
 				</div>-->
 				<div class="span12">
 					<ul class="nav nav-pills">
-						<li class="active"><a href="database.php">Search for Questions</a></li>
-						<li><a href="roundsearch.php">Search for Rounds</a></li>
+						<li><a href="database.php">Search for Questions</a></li>
+						<li class="active"><a href="roundsearch.php">Search for Rounds</a></li>
 						<li><a href="retrieve.php">Retrieve Round using Round ID</a></li>
 						<li><a href="#">Download Visual Bonus Rounds</a></li>
 					</ul>
@@ -108,64 +107,17 @@ $urows = mysql_num_rows($userresults);
 											<option>Middle Nationals</option>
 											<option>Late Nationals</option>
 										</select>
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<td><b>Subject Priorities</b></td>
-								<td>
-									<label>
-										Biology: 
-										<select class="form-control" name="biology">
-											<option value="3">High</option>
-											<option value="2" selected="selected">Medium</option>
-											<option value="1">Low</option>
-											<option value="0">None</option>
-										</select>
 									</label> <br />
 									<label>
-										Chemistry: 
-										<select class="form-control" name="chemistry">
-											<option value="3">High</option>
-											<option value="2" selected="selected">Medium</option>
-											<option value="1">Low</option>
-											<option value="0">None</option>
-										</select>
-									</label> <br />
-									<label>
-										Physics: 
-										<select class="form-control" name="physics">
-											<option value="3">High</option>
-											<option value="2" selected="selected">Medium</option>
-											<option value="1">Low</option>
-											<option value="0">None</option>
-										</select>
-									</label> <br />
-									<label>
-										Math: 
-										<select class="form-control" name="math">
-											<option value="3">High</option>
-											<option value="2" selected="selected">Medium</option>
-											<option value="1">Low</option>
-											<option value="0">None</option>
-										</select>
-									</label> <br />
-									<label>
-										Earth and Space: 
-										<select class="form-control" name="ersp">
-											<option value="3">High</option>
-											<option value="2" selected="selected">Medium</option>
-											<option value="1">Low</option>
-											<option value="0">None</option>
-										</select>
-									</label> <br />
-									<label>
-										Energy/General Science: 
-										<select class="form-control" name="energy">
-											<option value="3">High</option>
-											<option value="2" selected="selected">Medium</option>
-											<option value="1">Low</option>
-											<option value="0">None</option>
+										Subject Spread: 
+										<select class="form-control" name="spread">
+											<option select="selected">Assorted</option>
+											<option>Biology</option>
+											<option>Chemistry</option>
+											<option>Physics</option>
+											<option>Math</option>
+											<option>Earth and Space</option>
+											<option>Energy</option>
 										</select>
 									</label>
 								</td>
@@ -177,7 +129,6 @@ $urows = mysql_num_rows($userresults);
 										Written by:
 										<select multiple id="authors" name="authors[]" style="width:500px">
 											<?php
-											//<option value="AL">Alaska</option>
 											for ($j = 0; $j < $urows; $j++)
 											{
 												$uid = mysql_result($userresults, $j, 'uid');
@@ -192,7 +143,6 @@ $urows = mysql_num_rows($userresults);
 										Not written by:
 										<select multiple id="authornots" name="authornots[]" style="width:500px">
 											<?php
-											//<option value="AL">Alaska</option>
 											for ($j = 0; $j < $urows; $j++)
 											{
 												$uid = mysql_result($userresults, $j, 'uid');
@@ -206,13 +156,6 @@ $urows = mysql_num_rows($userresults);
 								</td>
 							</tr>
 							<tr>
-								<td><b>Question Sources</b></td>
-								<td>
-									<label><input type="checkbox" checked="checked" name="assorted" /> Assorted Rounds</label> <br />
-									<label><input type="checkbox" checked="checked" name="subject" /> Subject Rounds</label> <br />
-								</td>
-							</tr>
-							<tr>
 								<td><b>Question Details</b></td>
 								<td>
 									<label>
@@ -223,7 +166,7 @@ $urows = mysql_num_rows($userresults);
 											<option value="6 MONTH">In the past six months</option>
 											<option value="1 YEAR">In the past year</option>
 											<option value="ever">Ever</option>
-											<option value="dontcare">Doesn't matter</option>
+											<option value="dontcare">Doesn't matter</option>									
 										</select>
 									</label>
 								</td>

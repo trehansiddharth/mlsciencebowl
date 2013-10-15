@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <?php
-$db_hostname = "localhost";
-$db_database = "mlsciencebowl";
-$db_username = "mlsciencebowl";
-$db_password = "planck";
-$db_server = mysql_connect($db_hostname, $db_username, $db_password);
+session_start();
+
+include 'dbinfo.php';
 
 $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
-
-if (!$db_server) die("Unable to connect to MySQL: " . mysql_error());
-
-mysql_select_db($db_database) or die("Unable to select database: " . mysql_error());
 
 $result = mysql_query("SELECT * FROM users WHERE name = '$username'");
 if (!$result) die ("Database access failed: " . mysql_error());
@@ -27,20 +21,23 @@ if ($rows == 1)
 	
 	if ($expectedpass == $password)
 	{
-		session_start();
 		$_SESSION['username'] = $username;
 		$_SESSION['loggedin'] = $password;
 		$_SESSION['uid'] = $uid;
+		$_SESSION['query'] = NULL;
 		
-		$result = mysql_query("SELECT * FROM queue");
-		if (!$result) die ("Database access failed: " . mysql_error());
-		$_SESSION['queuecount'] = mysql_num_rows($result);
+		include 'updatequeue.php';
 		
-		$result = mysql_query("SELECT * FROM questions WHERE timesread = 0");
-		if (!$result) die ("Database access failed: " . mysql_error());
-		$_SESSION['databasecount'] = mysql_num_rows($result);
+		include 'updatedatabase.php';
 		
-		header("Location: queue.php");
+		if ($utype == "Admin")
+		{
+			header("Location: queue.php");
+		}
+		else if ($utype == "Stdnt")
+		{
+			header("Location: upload.php");
+		}
 		exit;
 	}
 	else
@@ -58,11 +55,11 @@ else
 			$utype = mysql_result($passwordquery, 0, 'utype');
 			$adduserquery = mysql_query("INSERT INTO users VALUES(DEFAULT, '$username', '$email', '$utype')");
 			$uid = mysql_insert_id();
-						
-			session_start();
+			
 			$_SESSION['username'] = $username;
 			$_SESSION['loggedin'] = $password;
 			$_SESSION['uid'] = $uid;
+			$_SESSION['query'] = NULL;
 			
 			$result = mysql_query("SELECT * FROM queue");
 			if (!$result) die ("Database access failed: " . mysql_error());
@@ -72,7 +69,14 @@ else
 			if (!$result) die ("Database access failed: " . mysql_error());
 			$_SESSION['databasecount'] = mysql_num_rows($result);
 			
-			header("Location: queue.php");
+			if ($utype == "Admin")
+			{
+				header("Location: queue.php");
+			}
+			else if ($utype == "Stdnt")
+			{
+				header("Location: upload.php");
+			}
 			exit;
 		}
 		else

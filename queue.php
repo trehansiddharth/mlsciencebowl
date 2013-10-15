@@ -2,28 +2,21 @@
 <?php
 session_start();
 
-//Log into mysql
+include 'dbinfo.php';
 
-$db_hostname = "localhost";
-$db_database = "mlsciencebowl";
-$db_username = "mlsciencebowl";
-$db_password = "planck";
-$db_server = mysql_connect($db_hostname, $db_username, $db_password);
+include 'validateadmin.php';
 
-if (!$db_server) die("Unable to connect to MySQL: " . mysql_error());
+include 'updatequeue.php';
+include 'updatedatabase.php';
 
-mysql_select_db($db_database) or die("Unable to select database: " . mysql_error());
-
-if ($_SESSION['loggedin'] != "stefanboltzmann")
-{
-	header("Location: index.html");
-	exit;
-}
+$result = mysql_query("SELECT * FROM questions WHERE timesread = 0");
+if (!$result) die ("Database access failed: " . mysql_error());
+$_SESSION['databasecount'] = mysql_num_rows($result);
 
 $username = $_SESSION['username'];
 $databasecount = $_SESSION['databasecount'];
 
-$query = "SELECT * FROM queue";
+$query = "SELECT * FROM queue WHERE pending=0";
 $result = mysql_query($query);
 if (!$result) die ("Database access failed: " . mysql_error());
 $rows = mysql_num_rows($result);
@@ -78,6 +71,22 @@ $_SESSION['queuecount'] = $queuecount;
 			}
 			location.reload();
 		}
+		function rejectselected(bx)
+		{
+			var cbs = document.getElementsByName('queuebox');
+			for(var i=0; i < cbs.length; i++)
+			{
+				if (cbs[i].checked)
+				{
+					var xmlHttp = null;
+					xmlHttp = new XMLHttpRequest();
+					xmlHttp.open("POST", "rejectqueue.php?rid=" + String(cbs[i].id), false);
+					xmlHttp.send(null);
+					response = xmlHttp.responseText;
+				}
+			}
+			location.reload();
+		}
     	</script>
     	
 		<div class="container-fluid">
@@ -95,11 +104,9 @@ $_SESSION['queuecount'] = $queuecount;
 					<li><a href="database.php">Database <span class="badge badge-success">
 						<?php echo $databasecount ?>
 					</span></a></li>
-					<li><a href="users.php">Users</a></li>
-					<!--<li><a href="reader.php">Reader <span class="badge badge-warning">
-						<?php echo $databasecount ?>
-					</span></a></li>-->
+					<li><a href="users.php">Inventory</a></li>
 					<li><a href="upload.php">Upload</a></li>
+					<li><a href="profile.php">Profile</a></li>
 				</ul>
 				<h2>Queue</h2>
 			</div>
@@ -176,7 +183,7 @@ $_SESSION['queuecount'] = $queuecount;
 						</tbody>
 					</table>
 					<div style="float:right">
-						<button class="btn" type="button"><span class="glyphicon glyphicon-trash"></span> Reject Selected</button>
+						<button class="btn" type="button" onclick="rejectselected(this)">Reject Selected</button>
 						<button class="btn btn-primary" type="button" onclick="submitselected(this)">Submit Selected</button>
 					</div>
 					<div style="float:left">
